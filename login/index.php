@@ -21,7 +21,7 @@ function router(){
         view('login');
     }
     else if($method == 'POST' && count($url) == 1 && $url[0] == 'login'){
-        
+        doLogin();
     }
 
 
@@ -31,4 +31,14 @@ function router(){
 function view($tmp){
     require DIR . 'inc/' . $tmp . '.php';
 
+}
+
+function doLogin(){
+    $users = file_get_contents(DIR . 'inc/users.json');
+    $users =json_decode($users, 1);
+    foreach($users as $user){
+        if($user['name'] == $_POST['name'] ?? ''){
+            if
+        }
+    }
 }
