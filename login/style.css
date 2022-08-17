@@ -1,0 +1,9 @@
+.link{
+    background: none;
+    border: solid 1px crimson;
+    outline: none;
+    color: crimson;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 30px;
+}
