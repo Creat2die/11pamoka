@@ -1,29 +1,11 @@
 <?php
    
     $sarasas = json_decode(file_get_contents(__DIR__ . '/data.json', 1));
-//sortas
+    //sortas
     usort($sarasas, function($a, $b) {return strcmp($a->pavarde, $b->pavarde);});
-     file_put_contents(__DIR__ . '/data.json', json_encode($sarasas));
+    file_put_contents(__DIR__ . '/data.json', json_encode($sarasas));
+    $sarasas = json_decode(file_get_contents(__DIR__ . '/data.json', 1));
 
-    //GET trinimas
-  
-    if(isset($_GET)){
-        $indexPasirinkto = ($_GET['index']);
-    }
-
-    $sarasas = json_decode(file_get_contents(__DIR__ . '/data.json'),1);
-    foreach($sarasas as $index => $value){
-        if($indexPasirinkto == $index){
-            if($sarasas[$index]['likutis'] == 0){
-                unset($sarasas[$indexPasirinkto]);
-                echo 'PASkYRA BUVO ISTINTA';
-                file_put_contents(__DIR__ . '/data.json', json_encode($sarasas));
-            }else{
-                echo 'NEPAVYKO ISTRINTI PASKYROS. SASKAITOJE YRA';
-            }
-           
-        }
-    }
 
  
 ?>
@@ -38,6 +20,7 @@
     <title>Document</title>
 </head>
 <body>
+    <?php include 'header.php' ?>   
     <?php foreach($sarasas as $indexas => $value): ?>
         <div style="background:red; margin: 50px">
     <?php foreach($value as $index => $name): ?>
@@ -47,7 +30,7 @@
     <?php endforeach ?>
         <a href="http://localhost/11pamoka/bankas/pridetiLesas.php?index=<?= $indexas ?>">Pridėti</a>
         <a href="http://localhost/11pamoka/bankas/nuskaitytiLesas.php?index=<?= $indexas ?>">Atimti</a>
-        <a href="http://localhost/11pamoka/bankas/sarasas.php?index=<?= $indexas ?>">Istrinti saskaita</a>
+        <a href="http://localhost/11pamoka/bankas/istrintiSaskaita.php?index=<?= $indexas ?>">Istrinti saskaita</a>
     </div>
     <?php endforeach ?>
 

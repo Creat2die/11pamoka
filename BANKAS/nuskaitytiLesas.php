@@ -5,7 +5,7 @@
 
 if(isset($_GET)){
     $indexPasirinkto = ($_GET['index']);
-    print_r($_GET);
+
 }
 
 
@@ -53,6 +53,7 @@ if('POST' == $_SERVER['REQUEST_METHOD']){
     <title>Document</title>
 </head>
 <body>
+<?php include 'header.php' ?>
     <div>
     <?php foreach(json_decode(file_get_contents(__DIR__ . '/data.json'),1) as $indexas => $value):?>
         <?php if($indexas == $indexPasirinkto):   ?>    

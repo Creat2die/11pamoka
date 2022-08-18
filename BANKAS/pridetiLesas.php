@@ -48,6 +48,7 @@ if('POST' == $_SERVER['REQUEST_METHOD']){
     <title>Document</title>
 </head>
 <body>
+<?php include 'header.php' ?>
     <div>
     <?php foreach($sarasas as $indexas => $value):?>
         <?php if($indexas == $indexPasirinkto):   ?>    
