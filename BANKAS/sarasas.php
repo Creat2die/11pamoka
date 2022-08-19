@@ -4,8 +4,6 @@
     //sortas
     usort($sarasas, function($a, $b) {return strcmp($a->pavarde, $b->pavarde);});
     file_put_contents(__DIR__ . '/data.json', json_encode($sarasas));
-    $sarasas = json_decode(file_get_contents(__DIR__ . '/data.json', 1));
-
 
  
 ?>

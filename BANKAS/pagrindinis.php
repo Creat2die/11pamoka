@@ -1,40 +1,51 @@
 <?php
 //POST scenarijus
 $erroras='';
-if('POST' == $_SERVER['REQUEST_METHOD'] ){
+$sarasas = json_decode(file_get_contents(__DIR__ . '/data.json', 1));
 
+if('POST' == $_SERVER['REQUEST_METHOD'] ){
+    $sutampa = 0;
     $ra = $_POST ?? 'Nieko nera';
 
  
     if(isset($_POST['vardas']) &&  strlen($_POST['vardas'])>3){
-    
-
-        if(!file_exists(__DIR__ . '/data.json')){
-            file_put_contents(__DIR__ . '/data.json', json_encode([]));
-        }
+        if(isset($_POST['pavarde']) &&  strlen($_POST['pavarde'])>3){
+            if(isset($_POST['asmensKodas']) &&  preg_match("/^[3-9][0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[0-9]{4}$/", $_POST['asmensKodas'])){
+                foreach($sarasas as $objektas){
+                    if($_POST['asmensKodas'] == $objektas->asmensKodas){
+                        $sutampa = 1;
+                        $erroras='Toks asmens kodas jau egzistuoja'; 
+                    
+                    }
+                }
+                    if($sutampa == 0){
+                        if(!file_exists(__DIR__ . '/data.json')){
+                            file_put_contents(__DIR__ . '/data.json', json_encode([]));
+                        }
+                
+                        $data =json_decode(file_get_contents(__DIR__ . '/data.json', 1));
+                    
+                        $data[] = $ra;
+                    
+                        $erroras='';
+            
+                        file_put_contents(__DIR__ . '/data.json', json_encode($data));
+                    
+                        header("Location: http://localhost/11pamoka/bankas/pagrindinis.php");
+                        die;
+                    }
  
-        $data =json_decode(file_get_contents(__DIR__ . '/data.json', 1));
-    
-        $data[] = $ra;
-    
-        $erroras='';
+        }else{
+            $erroras='Klaidingas asmens kodas'; 
+        }
 
-        file_put_contents(__DIR__ . '/data.json', json_encode($data));
-    
-        header("Location: http://localhost/11pamoka/bankas/pagrindinis.php");
-        die;
+        }else{
+            $erroras='Klaidingai suvesta pavardė'; 
+        }
 
     } else{
-        $erroras='neveikia';
-    
-    
+        $erroras='Klaidingai suvestas vardas';  
     }
-    // if(preg_match("/^[3-9][0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[0-9]{4}$/", "$_POST('asmensKodas')")){
-    //    echo 'blogai';
-
-    // }
-
-
 
 }
 ?>
@@ -49,7 +60,7 @@ if('POST' == $_SERVER['REQUEST_METHOD'] ){
     <title>Document</title>
 </head>
 <body>
-    <?php include  __DIR__ . 'header.php' ?>
+    <?php include   'header.php' ?>
     <div style="display: flex; align-items: center; flex-direction: column; ">
     <form action="http://localhost/11pamoka/bankas/pagrindinis.php" method="post">
         Jūsų vardas
