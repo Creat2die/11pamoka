@@ -9,6 +9,7 @@
             if($indexPasirinkto == $index){
                 if($sarasas[$index]['likutis'] == 0){
                     unset($sarasas[$indexPasirinkto]);
+                    $sarasas = array_values($sarasas);
                     echo 'PASkYRA BUVO ISTINTA';
                     file_put_contents(__DIR__ . '/data.json', json_encode($sarasas));
                     

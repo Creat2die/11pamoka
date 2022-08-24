@@ -1,0 +1,19 @@
+{
+    "name": "mandarinas/11pamoka",
+    "description": "None",
+    "autoload": {
+        "psr-4": {
+            "Petro\\": "01/",
+            "Antano\\Belekas\\": "02/",
+            "\\": "01/"
+
+        }
+    },
+    "authors": [
+        {
+            "name": "Creat2die",
+            "email": "Jevgenij.s@inbox.lt"
+        }
+    ],
+    "require": {}
+}

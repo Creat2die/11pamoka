@@ -1,7 +1,13 @@
 <?php
 //POST scenarijus
 $erroras='';
+
+if(!file_exists(__DIR__ . '/data.json')){
+    file_put_contents(__DIR__ . '/data.json', json_encode([]));
+}
+
 $sarasas = json_decode(file_get_contents(__DIR__ . '/data.json', 1));
+
 
 if('POST' == $_SERVER['REQUEST_METHOD'] ){
     $sutampa = 0;
@@ -18,23 +24,14 @@ if('POST' == $_SERVER['REQUEST_METHOD'] ){
                     
                     }
                 }
-                    if($sutampa == 0){
-                        if(!file_exists(__DIR__ . '/data.json')){
-                            file_put_contents(__DIR__ . '/data.json', json_encode([]));
-                        }
-                
-                        $data =json_decode(file_get_contents(__DIR__ . '/data.json', 1));
-                    
-                        $data[] = $ra;
-                    
-                        $erroras='';
-            
-                        file_put_contents(__DIR__ . '/data.json', json_encode($data));
-                    
+                    if($sutampa == 0){               
+                        $data =json_decode(file_get_contents(__DIR__ . '/data.json', 1));                    
+                        $data[] = $ra;                    
+                        $erroras='';            
+                        file_put_contents(__DIR__ . '/data.json', json_encode($data));                    
                         header("Location: http://localhost/11pamoka/bankas/pagrindinis.php");
                         die;
                     }
- 
         }else{
             $erroras='Klaidingas asmens kodas'; 
         }
