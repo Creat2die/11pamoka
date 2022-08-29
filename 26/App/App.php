@@ -27,4 +27,9 @@ class App {
 
         }
     }
+
+    static public function view($name, $data=[]){
+        extract($data);
+        require DIR . 'resources/view/' . $name . '.php';
+    }
 }
