@@ -1,12 +1,10 @@
 {
-    "name": "mandarinas/11pamoka",
-    "description": "None",
+    "name": "mandarinas/26",
+    "description": "Nice and Fancy ZOO",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Petro\\": "01/",
-            "Antano\\Belekas\\": "02/",
-            "": "01/"
-
+            "": ""
         }
     },
     "authors": [

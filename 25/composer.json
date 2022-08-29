@@ -1,12 +1,8 @@
 {
-    "name": "mandarinas/11pamoka",
-    "description": "None",
+    "name": "mandarinas/25",
     "autoload": {
         "psr-4": {
-            "Petro\\": "01/",
-            "Antano\\Belekas\\": "02/",
-            "": "01/"
-
+            "": ""
         }
     },
     "authors": [
