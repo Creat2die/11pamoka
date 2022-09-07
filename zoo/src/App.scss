@@ -1,11 +1,4 @@
 @import "~bootstrap/scss/bootstrap";
-h1 {
-    color: skyblue;
-    span {
-        color: crimson;
-    }
-}
-
 .line {
     display: flex;
     justify-content: space-between;
@@ -83,5 +76,27 @@ h1 {
         min-width: 300px;
         text-align: center;
         font-size: 20px;
+    }
+}
+
+.modal {
+    display: block;
+    background-color: #00000099;
+    .close {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        font-size: 28px;
+    }
+}
+
+.msg-bin{
+    position: fixed;
+    width: 100%;
+    top: 15px;
+
+    .msg{
+        color: gray;
+        background-color:rgba(135, 207, 235, 0.991);
     }
 }

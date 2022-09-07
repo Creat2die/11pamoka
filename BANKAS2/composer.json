@@ -1,0 +1,16 @@
+{
+    "name": "mandarinas/bankas2",
+    "description": "AUksciausios klases, pats saugiausias bankas Lietuvoje!",
+    "autoload": {
+        "psr-4": {
+            "": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Creat2die",
+            "email": "Jevgenij.s@inbox.lt"
+        }
+    ],
+    "require": {}
+}
