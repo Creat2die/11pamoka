@@ -133,11 +133,11 @@ class UserController{
     public function delete(int $id){
         $useris= Json::connect()->show($id);
         if($useris['money'] > 0){
-            $this->error += ['neNulis' => 'Jūsų asmens kodas netinkamas'];
-            return App::view('user_list', ['title' => 'User List', 'users' => Json::connect()->showAll(), 'error' => $this->error]);
+            $this->error += ['neNulis' => 'Asmuo visdar turi lėšų saskaitoje'];
+            return App::view('user_list', ['title' => 'User List', 'users' => Json::connect()->showAll(), 'error' => $this->error, 'id' => $useris['id']]);
         }
         Json::connect()->delete($id);
-        return App::redirect('users');
+        return App::redirect('users', [ 'id' => $useris['id']]);
     }
 
 }
