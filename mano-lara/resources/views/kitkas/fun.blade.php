@@ -1,3 +1,11 @@
+@extends('home')
+
+@section('title')
+    SuperFUN
+@endsection
+@section('fun')
+
+    @include('kitkas.bu')
 
 cia atejau 
 
@@ -15,6 +23,12 @@ cia atejau
 @endif
 
 
-@foreach($mas as $value)
+@forelse($mas as $value)
     <h2>{{$value}}</h2>
-@endforeach
+@empty
+    <h2>Niekoner</h2>
+@endforelse
+
+
+
+@endsection
