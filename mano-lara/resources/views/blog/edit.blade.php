@@ -16,19 +16,20 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{route('store')}}" method="post">
+                    <form action="{{route('edit', $blog)}}" method="post">
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon3">Title</span>
-                        <input type="text" class="form-control" name="title" value="{{old('title')}}" >
+                        <input type="text" class="form-control" name="title" value={{old('title', $blog->title}}>
                     </div>
 
                     <div class="input-group">
                         <span class="input-group-text">Post</span>
-                        <textarea class="form-control" name="post" >{{old('post')}}</textarea>
+                        <textarea class="form-control" name="post" >{{old('post', $blog->post}}</textarea>
                     </div>
                     @csrf
-                    <button type="submit" class="btn btn-secondary mt-4">Create</button>
+                    @method('put')
+                    <button type="submit" class="btn btn-secondary mt-4">Save</button>
                     </form>
                 </div>
 
