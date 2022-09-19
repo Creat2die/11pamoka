@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Truck;
-use App\Http\Requests\StoreTruckRequest;
-use App\Http\Requests\UpdateTruckRequest;
+use App\Models\Mechanic;
+use Illuminate\Http\Request;
 
 class TruckController extends Controller
 {
@@ -15,7 +15,11 @@ class TruckController extends Controller
      */
     public function index()
     {
-        //
+        $trucks = Truck::all();
+
+        return view('truck.index', [
+            'trucks' => $trucks
+        ]);
     }
 
     /**
@@ -25,18 +29,58 @@ class TruckController extends Controller
      */
     public function create()
     {
-        //
+        $mechanics = Mechanic::all();
+        return view('truck.create', [
+            'mechanics' => $mechanics
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreTruckRequest  $request
+     * @param  \Illuminate\Http\Request;  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTruckRequest $request)
+    public function store(Request $request)
     {
-        //
+        $truck = new Truck;
+
+
+
+
+
+            if ($request->file('photo')) {
+
+                $photo = $request->file('photo');
+    
+                $ext = $photo->getClientOriginalExtension();
+    
+                $name = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+    
+                $file = $name. '-' . rand(100000, 999999). '.' . $ext;
+    
+                // $Image = Image::make($photo)->pixelate(12);
+    
+                // $Image->save(public_path().'/images/'.$file);
+    
+                $photo->move(public_path().'/trucks', $file);
+    
+                $truck->photo = asset('/trucks') . '/' . $file;
+    
+            }
+    
+     
+
+
+
+        $truck->maker = $request->maker;
+        $truck->plate = $request->plate;
+        $truck->make_year = $request->make_year;
+        $truck->mechanic_notices = $request->mechanic_notices;
+        $truck->mechanic_id = $request->mechanic_id;
+        $truck->save();
+
+        return redirect()->route('t_index');
     }
 
     /**
@@ -47,7 +91,9 @@ class TruckController extends Controller
      */
     public function show(Truck $truck)
     {
-        //
+        return view('truck.show', [
+            'truck' => $truck
+        ]);
     }
 
     /**
@@ -58,19 +104,30 @@ class TruckController extends Controller
      */
     public function edit(Truck $truck)
     {
-        //
+        $mechanics = Mechanic::all();
+        return view('truck.edit', [
+            'mechanics' => $mechanics,
+            'truck' => $truck
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateTruckRequest  $request
+     * @param  \Illuminate\Http\Request;  $request
      * @param  \App\Models\Truck  $truck
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTruckRequest $request, Truck $truck)
+    public function update(Request $request, Truck $truck)
     {
-        //
+        $truck->maker = $request->maker;
+        $truck->plate = $request->plate;
+        $truck->make_year = $request->make_year;
+        $truck->mechanic_notices = $request->mechanic_notices;
+        $truck->mechanic_id = $request->mechanic_id;
+        $truck->save();
+
+        return redirect()->route('t_index');
     }
 
     /**
@@ -81,6 +138,7 @@ class TruckController extends Controller
      */
     public function destroy(Truck $truck)
     {
-        //
+        $truck->delete();
+        return redirect()->route('t_index');
     }
 }

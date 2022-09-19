@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MechanicController as M;
+use App\Http\Controllers\TruckController as T;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,16 @@ Route::prefix('mechanic')->name('m_')->group(function () {
     Route::delete('/delete/{mechanic}', [M::class, 'destroy'])->name('delete');
     Route::get('/edit/{mechanic}', [M::class, 'edit'])->name('edit');
     Route::put('/edit/{mechanic}', [M::class, 'update'])->name('update');
+
+});
+
+Route::prefix('truck')->name('t_')->group(function () {
+    Route::get('/', [T::class, 'index'])->name('index');
+    Route::get('/create', [T::class, 'create'])->name('create');
+    Route::post('/create', [T::class, 'store'])->name('store');
+    Route::get('/show/{truck}', [T::class, 'show'])->name('show');
+    Route::delete('/delete/{truck}', [T::class, 'destroy'])->name('delete');
+    Route::get('/edit/{truck}', [T::class, 'edit'])->name('edit');
+    Route::put('/edit/{truck}', [T::class, 'update'])->name('update');
 
 });

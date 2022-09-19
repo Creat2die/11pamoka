@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Mechanic;
 use Illuminate\Http\Request;
 
-
-
 class MechanicController extends Controller
 {
     /**
@@ -17,8 +15,9 @@ class MechanicController extends Controller
     public function index()
     {
         $mechanics = Mechanic::all();
+
         return view('mechanic.index', [
-            'mechanics'=> $mechanics
+            'mechanics' => $mechanics
         ]);
     }
 
@@ -35,17 +34,16 @@ class MechanicController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreMechanicRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $mechanic =new Mechanic;
+        $mechanic = new Mechanic;
         $mechanic->name = $request->name;
         $mechanic->surname = $request->surname;
         $mechanic->save();
-        return redirect()->route('m_index');
-
+        return redirect()->route('m_index')->with('success_msg', 'Good job. We have new mechanic now.');
     }
 
     /**
@@ -56,7 +54,9 @@ class MechanicController extends Controller
      */
     public function show(Mechanic $mechanic)
     {
-        //
+        return view('mechanic.show', [
+            'mechanic' => $mechanic
+        ]);
     }
 
     /**
@@ -67,19 +67,24 @@ class MechanicController extends Controller
      */
     public function edit(Mechanic $mechanic)
     {
-        //
+        return view('mechanic.edit', [
+            'mechanic' => $mechanic
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateMechanicRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Mechanic  $mechanic
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Mechanic $mechanic)
     {
-        //
+        $mechanic->name = $request->name;
+        $mechanic->surname = $request->surname;
+        $mechanic->save();
+        return redirect()->route('m_index')->with('success_msg', 'Good job. Mechanic was updated');
     }
 
     /**
@@ -90,6 +95,11 @@ class MechanicController extends Controller
      */
     public function destroy(Mechanic $mechanic)
     {
-        //
+        if ($mechanic->getTrucks()->count()) {
+            return redirect()->back()->with('info_msg', 'Oh no, you can not delete this one.');
+        }
+        $mechanic->delete();
+        return redirect()->route('m_index');
+
     }
 }
