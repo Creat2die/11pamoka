@@ -112,6 +112,31 @@
     }
 }
 
+
+.breakdowns-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    .content {
+        display: flex;
+        h2 {
+            color: crimson;
+            margin: 0 5px;
+        }
+    }
+    .buttons {
+        display: flex;
+        align-items: center;
+        button,
+        form,
+        a {
+            margin: 5px 10px;
+            display: block;
+        }
+    }
+}
+
 .mechanic {
     display: flex;
     justify-content: flex-start;

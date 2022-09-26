@@ -32,7 +32,6 @@
                             <option value="{{$mechanic->id}}" @if($mechanic->id == old('mechanic_id')) selected @endif>{{$mechanic->name}} {{$mechanic->surname}}</option>
                             @endforeach
                         </select>
-                
                         <div class="input-group mt-3">
                             <span class="input-group-text">Photo</span>
                             <input type="file" name="photo" class="form-control">
