@@ -11,15 +11,11 @@
                         <li class="list-group-item">
                             <div class="breakdowns-list">
                                 <div class="content">
-                                    <div class="trucks-list">
-                                        <div class="content">
-                                            <h2><span>title: </span>{{$breakdown->title}}</h2>
-                                            <h4><span>status: </span>{{$breakdown->status}}</h4>
-                                        </div>
-                                    </div>
+                                            <h2>{{$breakdown->title}}</h2>
+                                            <h4><span>status: </span>{{$status[$breakdown->status]}}</h4>
                                 </div>
                                 <div class="buttons">
-                                    <button type="button" class="btn btn-danger">Delete</button>
+                                    <button data-id="{{$breakdown->id}}" type="button" class="btn btn-danger delete--button">Delete</button>
                                 </div>
                             </div>
                         </li>

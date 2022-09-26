@@ -18,7 +18,8 @@ class BreakdownController extends Controller
     {
         $mechanics = Mechanic::orderBy('surname')->get();
         return view('breakdown.index', [
-            'mechanics' => $mechanics
+            'mechanics' => $mechanics,
+            'status' => Breakdown::STATUS,
         ]);
     }
 
@@ -35,7 +36,10 @@ class BreakdownController extends Controller
 
     public function list(){
         $breakdowns = Breakdown::orderBy('updated_at', 'desc')->get();
-        $html = view('breakdown.list')->with('breakdowns', $breakdowns)->render();
+        $html = view('breakdown.list')
+        ->with('breakdowns', $breakdowns)
+        ->with('status', Breakdown::STATUS)
+        ->render();
         return response()->json([
             'html' => $html
         ]);
