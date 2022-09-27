@@ -1,5 +1,6 @@
 import './bootstrap';
 import axios from 'axios';
+import { Modal } from 'bootstrap';
 
 const mainContent = document.querySelector('.--content');
 if (mainContent) {
@@ -53,14 +54,36 @@ const getList = () => {
         .then(res => {
             breakdownsList.innerHTML = res.data.html;
             deleteEvent();
+            modalEvent();
         })
 }
 
-const deleteEvent =() => {
+const deleteEvent = () => {
     document.querySelectorAll('.delete--button')
-    .forEach(b => {
-        b.addEventListener('click', () => {
-            axios.delete(breakdownUrl + '/' + b.CDATA_SECTION_NODE.id)
+        .forEach(b => {
+            b.addEventListener('click', () => {
+                axios.delete(breakdownUrl + '/' + b.dataset.id)
+                    .then(res => {
+                        if (res.data.refresh == 'list') {
+                            getList();
+                        }
+                    })
+            });
         });
-    });
+}
+
+const modalEvent = () => {
+    const modal = document.querySelector('#edit-modal');
+    const fadeModal = new Modal(modal);
+    document.querySelectorAll('.edit--button')
+        .forEach(b => {
+            b.addEventListener('click', () => {
+                axios.get(breakdownUrl + '/modal/' + b.dataset.id)
+                .then(res =>{
+                    modal.querySelector('.modal-dialog').innerHTML = res.data.html;
+                    fadeModal.show();
+                })
+            })
+        })
+
 }

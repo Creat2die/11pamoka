@@ -16,4 +16,7 @@ class Breakdown extends Model
     ];
 
 
+    public function getTruck(){
+        return $this->belongsTo(Truck::class, 'truck_id', 'id');
+    }
 }
