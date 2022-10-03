@@ -22,3 +22,10 @@ Route::get('/', function () {
     ]);
 });
 
+// Route::prefix('listings')->name('l_')->group(function(){
+//     //all listings
+//     Route::get('/', [ListingController::class, 'index'])
+//     ->name('home');
+//     Route::get('/{listing}',[ListingController::class, 'show'])
+//     ->name('listing');
+// });
