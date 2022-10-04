@@ -11,48 +11,56 @@
                 <div class="card-body">
                     <form action="{{route('m_update', $movie)}}" method="post" enctype="multipart/form-data">
                         <div class="input-group mb-3">
-                            <span class="input-group-text">Maker</span>
-                            <input type="text" name="maker" class="form-control" value="{{old('maker', $movie->maker)}}">
+                            <span class="input-group-text">Title</span>
+                            <input type="text" name="title" class="form-control" value="{{old('title', $movie->title)}}">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text">Plate</span>
-                            <input type="text" name="plate" class="form-control" value="{{old('plate', $movie->plate)}}">
+                            <span class="input-group-text">Price</span>
+                            <input type="text" name="price" class="form-control" value="{{old('price', $movie->price)}}">
                         </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Make Year</span>
-                            <input type="text" name="make_year" class="form-control" value="{{old('make_year', $movie->make_year)}}">
+                          <div class="img-small mt-3">
+                        @forelse($movie->getPhotos as $photo)
+                        <div class="img">
+                         <div class="form-check">
+                    <input type="checkbox" class="form-check-input" value="{{$photo->id}}" id="{{$photo->id}}-del-photo" name="delete_photo">
+                    <label class="form-check-label" for="{{$photo->id}}-del-photo">
+                    Delete photo
+                    </label>
+                </div>
+                            <img src="{{$photo->url}}">
                         </div>
-                        <div class="input-group">
-                            <span class="input-group-text">Notices</span>
-                            <textarea class="form-control" name="mechanic_notices">{{old('mechanic_notices', $movie->mechanic_notices)}}</textarea>
-                        </div>
-                        @if($movie->photo)
+                        @empty
+                        <h2>No photos yet</h2>
+                        @endforelse
+                        {{-- @if($movie->photo)
                         <div class="img-small">
                             <img src="{{$movie->photo}}">
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" valua="1" id="del-photo" name="delete_photo">
-                            <label class="form-check-label" for="del_photo">Delete photo</label>
-                        </div>
-                        @endif
-
-                        <select name="mechanic_id" class="form-select mt-3">
-                            <option value="0">Choose mechanic</option>
-                            @foreach($mechanics as $mechanic)
-                            <option value="{{$mechanic->id}}" @if($mechanic->id == old('mechanic_id', $movie->mechanic_id)) selected @endif>{{$mechanic->name}} {{$mechanic->surname}}</option>
-                            @endforeach
-                        </select>
-                        <div class="input-group mt-3">
-                            <span class="input-group-text">Photo</span>
-                            <input type="file" name="photo" class="form-control">
-                        </div>
-                        @csrf
-                        @method('put')
-                        <button type="submit" class="btn btn-secondary mt-4">Save</button>
-                    </form>
                 </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" valua="1" id="del-photo" name="delete_photo">
+                    <label class="form-check-label" for="del_photo">Delete photo</label>
+                </div>
+                @endif
+                <div class="input-group mt-3">
+                    <span class="input-group-text">Photo</span>
+                    <input type="file" name="photo" class="form-control">
+                </div>
+                --}}
+
+                <select name="category_id" class="form-select mt-3">
+                    <option value="0">Choose category</option>
+                    @foreach($categories as $category)
+                    <option value="{{$category->id}}" @if($category->id == old('category_id', $movie->category_id)) selected @endif>{{$category->title}}</option>
+                    @endforeach
+                </select>
+
+                @csrf
+                @method('put')
+                <button type="submit" class="btn btn-secondary mt-4">Save</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

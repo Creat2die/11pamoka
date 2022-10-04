@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div  class="container">
     <div class="row justify-content-center">
         <div class="col-5">
             <div class="card">
@@ -21,13 +21,14 @@
                         <select name="category_id" class="form-select mt-3">
                             <option value="0">Choose category</option>
                             @foreach($categories as $category)
-                            <option value="{{$category->id}}" @if($category->id == old('category_id')) selected @endif>{{$category->name}} {{$category->surname}}</option>
+                            <option value="{{$category->id}}" @if($category->id == old('category_id')) selected @endif>{{$category->title}}</option>
                             @endforeach
                         </select>
-                        {{-- <div class="input-group mt-3">
+                        <div data-clone class="input-group mt-3">
                             <span class="input-group-text">Photo</span>
-                            <input type="file" name="photo" class="form-control">
-                        </div> --}}
+                            <input type="file" name="photo[]" multiple class="form-control">
+                        </div>
+
                         @csrf
                         <button type="submit" class="btn btn-secondary mt-4">Create</button>
                     </form>

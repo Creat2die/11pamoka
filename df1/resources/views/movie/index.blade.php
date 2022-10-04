@@ -61,8 +61,9 @@
                                             {{$movie->getCategory->title}}
                                         </a>
                                     </h5>
-                                    @if($movie->photo)
-                                    <h5><a href="{{$movie->photo}}" target="_BLANK">Photo</a></h5>
+                                    @if($movie->getPhotos()->count())
+                                    <h5><a href="{{$movie->lasImageUrl()}}" target="_BLANK">Photos: {{$movie->getPhotos()->count()}}</a></h5>
+                                    <div><img class="fit-picture" src="{{$movie->lasImageUrl()}}" height="150"></div>
                                     @endif
                                 </div>
                                 <div class="buttons">

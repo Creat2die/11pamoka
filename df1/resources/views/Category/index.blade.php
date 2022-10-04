@@ -10,16 +10,17 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
-                        @forelse($categories as $Category)
+                        @forelse($categories as $category)
                         <li class="list-group-item">
                             <div class="categories-list">
                                 <div class="content">
-                                    <h2>{{$Category->title}}</h2>
+                                    <h2>{{$category->title}} </h2>
+                                    <small>[{{$category->movies()->count()}}]</small>
                                 </div>
                                 <div class="buttons">
-                                    <a href="{{route('c_show', $Category)}}" class="btn btn-info">Show</a>
-                                    <a href="{{route('c_edit', $Category)}}" class="btn btn-success">Edit</a>
-                                    <form action="{{route('c_delete', $Category)}}" method="post">
+                                    <a href="{{route('c_show', $category)}}" class="btn btn-info">Show</a>
+                                    <a href="{{route('c_edit', $category)}}" class="btn btn-success">Edit</a>
+                                    <form action="{{route('c_delete', $category)}}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger">Delete</button>

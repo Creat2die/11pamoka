@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Movie;
 use App\Models\Category;
-use App\Http\Requests\StoreMovieRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreMovieRequest;
+
 
 class MovieController extends Controller
 {
@@ -45,7 +45,7 @@ class MovieController extends Controller
             'title' => $request->title,
             'price' => $request->price,
             'category_id' => $request->category_id,
-        ]);
+        ])->addImages($request->file('photo'));
 
         return redirect()->route('m_index');
     }
@@ -71,7 +71,10 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+        return view('movie.edit', [
+            'movie' => $movie,
+            'categories' => Category::orderBy('updated_at', 'desc')->get(),
+        ]);
     }
 
     /**
@@ -83,7 +86,12 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $movie->update([
+            'title' => $request->title,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+        ]);
+        return redirect()->route('m_index');
     }
 
     /**
@@ -94,6 +102,8 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+
+        $movie->delete();
+        return redirect()->route('m_index');
     }
 }
