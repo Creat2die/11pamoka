@@ -18,49 +18,52 @@
                             <span class="input-group-text">Price</span>
                             <input type="text" name="price" class="form-control" value="{{old('price', $movie->price)}}">
                         </div>
-                          <div class="img-small mt-3">
-                        @forelse($movie->getPhotos as $photo)
-                        <div class="img">
-                         <div class="form-check">
-                    <input type="checkbox" class="form-check-input" value="{{$photo->id}}" id="{{$photo->id}}-del-photo" name="delete_photo">
-                    <label class="form-check-label" for="{{$photo->id}}-del-photo">
-                    Delete photo
-                    </label>
-                </div>
-                            <img src="{{$photo->url}}">
+                        <div data-clone class="input-group mt-3">
+                            <span class="input-group-text">Photo</span>
+                            <input type="file" name="photo[]" multiple class="form-control">
                         </div>
-                        @empty
-                        <h2>No photos yet</h2>
-                        @endforelse
-                        {{-- @if($movie->photo)
+                        <div class="img-small-ch mt-3">
+                            @forelse($movie->getPhotos as $photo)
+                            <div class="img">
+
+                                <label for="{{$photo->id}}-del-photo">x</label>
+                                <input type="checkbox" value="{{$photo->id}}" id="{{$photo->id}}-del-photo" name="delete_photo[]">
+                                <img src="{{$photo->url}}">
+
+
+                            </div>
+                            @empty
+                            <h2>No photos yet</h2>
+                            @endforelse
+                            {{-- @if($movie->photo)
                         <div class="img-small">
                             <img src="{{$movie->photo}}">
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" valua="1" id="del-photo" name="delete_photo">
-                    <label class="form-check-label" for="del_photo">Delete photo</label>
-                </div>
-                @endif
-                <div class="input-group mt-3">
-                    <span class="input-group-text">Photo</span>
-                    <input type="file" name="photo" class="form-control">
-                </div>
-                --}}
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" valua="1" id="del-photo" name="delete_photo">
+                            <label class="form-check-label" for="del_photo">Delete photo</label>
+                        </div>
+                        @endif
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Photo</span>
+                            <input type="file" name="photo" class="form-control">
+                        </div>
+                        --}}
 
-                <select name="category_id" class="form-select mt-3">
-                    <option value="0">Choose category</option>
-                    @foreach($categories as $category)
-                    <option value="{{$category->id}}" @if($category->id == old('category_id', $movie->category_id)) selected @endif>{{$category->title}}</option>
-                    @endforeach
-                </select>
+                        <select name="category_id" class="form-select mt-3">
+                            <option value="0">Choose category</option>
+                            @foreach($categories as $category)
+                            <option value="{{$category->id}}" @if($category->id == old('category_id', $movie->category_id)) selected @endif>{{$category->title}}</option>
+                            @endforeach
+                        </select>
 
-                @csrf
-                @method('put')
-                <button type="submit" class="btn btn-secondary mt-4">Save</button>
-                </form>
+                        @csrf
+                        @method('put')
+                        <button type="submit" class="btn btn-secondary mt-4">Save</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 @endsection

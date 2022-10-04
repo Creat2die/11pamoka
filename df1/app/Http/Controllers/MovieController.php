@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreMovieRequest;
+
 
 
 class MovieController extends Controller
@@ -91,6 +91,10 @@ class MovieController extends Controller
             'price' => $request->price,
             'category_id' => $request->category_id,
         ]);
+        $movie
+        ->removeImages($request->delete_photo)
+        ->addImages($request->file('photo'));
+
         return redirect()->route('m_index');
     }
 
