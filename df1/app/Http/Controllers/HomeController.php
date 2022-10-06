@@ -23,7 +23,7 @@ class HomeController extends Controller
                 $movies = Movie::where('title', 'like', '%'.$request->s.'%');
             } else{
                 $movies = Movie::where('title', 'like', '%'.$search[0]. '%' .$search[1] . '%')
-               // ->orWhere('title', 'like', '%'.$search[1]. '%' .$search[0] . '%')
+                ->orWhere('title', 'like', '%'.$search[1]. '%' .$search[0] . '%')
                 ->orWhere('title', 'like', '%'.$search[0]. '%')
                 ->orWhere('title', 'like', '%'.$search[1]. '%');
             }
