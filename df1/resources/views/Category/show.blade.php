@@ -28,11 +28,13 @@
                         @endforelse
                     </ul>
                     <div class="buttons mt-2">
+                     @if(Auth::user()->role >= 10)
                                     <form action="{{route('c_delete_movies', $category)}}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger">Delete all movies</button>
                                     </form>
+                     @endif               
                                 </div>
                 </div>
             </div>
