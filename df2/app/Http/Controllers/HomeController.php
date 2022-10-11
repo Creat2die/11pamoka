@@ -63,7 +63,7 @@ class HomeController extends Controller
         $movie->rating_count ++;
         $movie->rating = $movie->rating_sum / $movie->rating_count;
         $movie->save();
-        return redirect()->back();
+        return redirect()->back()->with('ok', 'Thnaks for your rating!');;
     }
 
 
