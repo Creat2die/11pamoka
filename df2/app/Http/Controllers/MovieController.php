@@ -39,9 +39,16 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required',
-            'price' => 'required',
+        $request->validate([
+            'title' => 'required|min:3|max:20',
+            'price' => 'required|numeric|min:1|max:100',
+            'photo.*' => 'sometimes|required|mimes:jpg|max:3000',
+        ],
+        [
+            'title.required' => 'Nėra tilte',
+            'title.min' => 'Title per trumpas',
+            'title.max' => 'Title per ilgas',
+            'price.required' => 'Nėra kainos',
         ]);
 
         Movie::create([
@@ -49,7 +56,7 @@ class MovieController extends Controller
             'price' => $request->price,
         ])->addImages($request->file('photo'));
 
-        return redirect()->route('m_index');
+        return redirect()->route('m_index')->with('ok', 'All good!');
     }
 
     /**
@@ -88,6 +95,12 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
+        $request->validate([
+            'title' => 'required|min:3|max:20',
+            'price' => 'required|numeric|min:1|max:100',
+            'photo.*' => 'sometimes|required|mimes:jpg|max:3000',
+        ]);
+
         $movie->update([
             'title' => $request->title,
             'price' => $request->price,
