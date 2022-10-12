@@ -307,3 +307,14 @@
                     }
                 }
             }
+            .all_tags {
+                margin: 0 10px;
+                border: 1px solid skyblue;
+                display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    flex-wrap: wrap;
+                  span{
+                    padding: 5px;
+                  }              
+            }

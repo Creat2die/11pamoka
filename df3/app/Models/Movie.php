@@ -26,6 +26,10 @@ class Movie extends Model
         return $this->hasMany(MovieImage::class, 'movie_id', 'id');
     }
 
+    public function getTags(){
+        return $this->belongsToMany(Tag::class, 'movie_tags', 'movie_id', 'tag_id');
+    }
+
     public function lastImageUrl(){
         return $this->getPhotos()->orderBy('id', 'desc')->first()->url;
     }

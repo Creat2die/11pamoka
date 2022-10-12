@@ -21,6 +21,14 @@
                                     <div><img class="fit-picture" src="{{$movie->lastImageUrl()}}" height="150"></div>
                                     @endif
                                 </div>
+                                @if($movie->getTags()->count())
+                                    <div class="all-tags">
+                                        @foreach($movie->getTags as $tag)
+                                        <span>#{{$tag->title}} </span>
+                                            
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <div class="buttons">
                                     <a href="{{route('m_show', $movie)}}" class="btn btn-info">Show</a>
                                      @if(Auth::user()->role >= 10)
