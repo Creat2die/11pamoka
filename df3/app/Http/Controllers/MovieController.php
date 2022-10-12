@@ -88,7 +88,8 @@ class MovieController extends Controller
     {
         return view('movie.edit', [
             'movie' => $movie,
-           
+            'tags' => Tag::orderBy('title')->get(),
+            'checkedTags' => $movie->getPivot()->pluck('tag_id')->all(),
         ]);
     }
 
