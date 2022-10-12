@@ -6,7 +6,7 @@
         <div class="col-9">
             <div class="card">
                 <div class="card-header">
-                    <h2>tags</h2>
+                    <h2>Tags</h2>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -15,7 +15,7 @@
                             <div class="tags-list">
                                 <div class="content">
                                     <h2>{{$tag->title}} </h2>
-                                    <small>[{{$tag->movies()->count()}}]</small>
+                                    <small>[{{$tag->getPivot()->count()}}]</small>
                                 </div>
                                 <div class="buttons">
                                     <a href="{{route('t_show', $tag)}}" class="btn btn-info">Show</a>
