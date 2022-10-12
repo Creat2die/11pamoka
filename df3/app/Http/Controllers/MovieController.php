@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Movie;
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 
@@ -28,7 +28,10 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('movie.create');
+        
+        return view('movie.create', [
+            'tags' => Tag::orderBy('title')->get(),
+        ]);
     }
 
     /**
