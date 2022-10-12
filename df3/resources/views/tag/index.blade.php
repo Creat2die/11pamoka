@@ -12,10 +12,11 @@
                     <ul class="list-group">
                         @forelse($tags as $tag)
                         <li class="list-group-item">
-                            <div class="tags-list">
+                            <div class="categories-list">
                                 <div class="content">
-                                    <h2>{{$tag->title}} </h2>
-                                    <small>[{{$tag->getPivot()->count()}}]</small>
+                                    <h2>{{$tag->title}}
+                                        <small>[{{$tag->getPivot()->count()}}]</small>
+                                    </h2>
                                 </div>
                                 <div class="buttons">
                                     <a href="{{route('t_show', $tag)}}" class="btn btn-info">Show</a>
@@ -31,18 +32,15 @@
                             </div>
                         </li>
                         @empty
-                        <li class="list-group-item">No Tags found</li>
+                        <li class="list-group-item">No tags found</li>
                         @endforelse
                     </ul>
                 </div>
                 <div class="me-3 mx-3">
-                    {{-- {{ $tags->links() }} --}}
+                    {{-- {{ $categories->links() }} --}}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
 @endsection

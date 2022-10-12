@@ -14,7 +14,7 @@
                         <h5>{{$tag->surtitle}}</h5>
                     </div>
                     <ul class="list-group">
-                        @forelse($tag->movies as $movie)
+                        @forelse($tag->getMovies as $movie)
                         <li class="list-group-item">
                             <div class="movies-list">
                                 <div class="content">
@@ -28,14 +28,7 @@
                         @endforelse
                     </ul>
                     <div class="buttons mt-2">
-                     @if(Auth::user()->role >= 10)
-                                    <form action="{{route('t_delete_movies', $tag)}}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger">Delete all movies</button>
-                                    </form>
-                     @endif               
-                                </div>
+                    </div>
                 </div>
             </div>
         </div>

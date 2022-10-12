@@ -301,20 +301,30 @@
 
                     [type=checkbox] {
                         display: none;
+
                         &:checked~img {
                             opacity: 0.3;
                         }
                     }
                 }
             }
-            .all_tags {
+
+            .all-tags{
                 margin: 0 10px;
                 border: 1px solid skyblue;
                 display: flex;
-                    justify-content: flex-start;
-                    align-items: center;
-                    flex-wrap: wrap;
-                  span{
+                justify-content: flex-start;
+                align-items: center;
+                flex-wrap: wrap;
+                a{
+                    text-decoration: none;
+                    color:black;
+                }
+                span {
                     padding: 5px;
-                  }              
+                    color: orange;
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
             }

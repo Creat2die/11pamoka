@@ -24,7 +24,7 @@
                                 @if($movie->getTags()->count())
                                     <div class="all-tags">
                                         @foreach($movie->getTags as $tag)
-                                        <span>#{{$tag->title}} </span>
+                                        <a href="{{route('t_show', $tag)}}">#<span>{{$tag->title}} </span></a>
                                             
                                         @endforeach
                                     </div>
