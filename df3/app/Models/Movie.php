@@ -52,6 +52,25 @@ class Movie extends Model
         return $this;
     }
 
+
+    public function addTags(?array $tags) :self{
+        if($tags){
+        $movieTag =[];
+        $time =Carbon::now();
+        foreach($tags as $tag){
+            $movieTag[] = [ 
+            'movie_id' => $this->id,
+            'tag_id' => $tag,
+            'created_at' => $time,
+            'updated_at' => $time,          
+            ];
+        }
+        MovieTag::insert($movieTag);
+        }
+        return $this;
+    }
+
+
     public function removeImages(?array $photos) :self{
         if($photos){
             $toDelete = MovieImage::whereIn('id', $photos)->get();
