@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Movie;
-use App\Models\Tag;
+use App\Models\Dish;
+use App\Models\Restoran;
 use Illuminate\Http\Request;
 
 
 
-class MovieController extends Controller
+class DishController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-
-        
-        return view('movie.index', [
-            'movies' => Movie::orderBy('updated_at', 'desc')->paginate(5),
+        return view('dish.index', [
+            'dishes' => Dish::orderBy('updated_at', 'desc')->paginate(5),
         ]);
     }
 
@@ -30,9 +28,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        
-        return view('movie.create', [
-            'tags' => Tag::orderBy('title')->get(),
+        return view('dish.create', [
+            'restorans' => Restoran::orderBy('updated_at', 'desc')->get(),
         ]);
     }
 
@@ -56,40 +53,39 @@ class MovieController extends Controller
             'price.required' => 'Nėra kainos',
         ]);
 
-        Movie::create([
+        Dish::create([
             'title' => $request->title,
             'price' => $request->price,
-        ])->addImages($request->file('photo'))
-        ->addTags($request->tag);
+        ])->addImages($request->file('photo'));
 
-        return redirect()->route('m_index')->with('ok', 'All good!');
+        return redirect()->route('d_index')->with('ok', 'All good!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Movie  $movie
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function show(Movie $movie)
+    public function show(Dish $dish)
     {
-        return view('movie.show', [
-            'movie' => $movie,
+        return view('dish.show', [
+            'dish' => $dish,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Movie  $movie
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function edit(Movie $movie)
+    public function edit(Dish $dish)
     {
-        return view('movie.edit', [
-            'movie' => $movie,
-            'tags' => Tag::orderBy('title')->get(),
-            'checkedTags' => $movie->getPivot()->pluck('tag_id')->all(),
+        return view('dish.edit', [
+            'dish' => $dish,
+            'restorans' => Restoran::orderBy('updated_at', 'desc')->get(),
+           
         ]);
     }
 
@@ -97,46 +93,45 @@ class MovieController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\Request  $request
-     * @param  \App\Models\Movie  $movie
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie)
+    public function update(Request $request, Dish $dish)
     {
         $request->validate([
             'title' => 'required|min:3|max:20',
             'price' => 'required|numeric|min:1|max:100',
             'photo.*' => 'sometimes|required|mimes:jpg|max:3000',
+            'restoran_id' => $request->restoran_id,
         ]);
 
-        $movie->update([
+        $dish->update([
             'title' => $request->title,
             'price' => $request->price,
             
         ]);
-        $movie
+        $dish
         ->removeImages($request->delete_photo)
-        ->addImages($request->file('photo'))
-        ->removeTags($request->tag)
-        ->addTags($request->tag);
+        ->addImages($request->file('photo'));
 
-        return redirect()->route('m_index')->with('ok', 'All good!');
+        return redirect()->route('d_index')->with('ok', 'All good!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Movie  $movie
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Movie $movie)
+    public function destroy(Dish $dish)
     {
-        if($movie->getPhotos()->count()){
-            $delIds = $movie->getPhotos()->pluck('id')->all(); 
-            $movie->removeImages($delIds);
+        if($dish->getPhotos()->count()){
+            $delIds = $dish->getPhotos()->pluck('id')->all(); 
+            $dish->removeImages($delIds);
         }
 
-        $title = $movie->title;
-        $movie->delete();
-        return redirect()->route('m_index')->with('ok', "$title gone!");
+        $title = $dish->title;
+        $dish->delete();
+        return redirect()->route('d_index')->with('ok', "$title gone!");
     }
 }

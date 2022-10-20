@@ -39,21 +39,22 @@ class Movie extends Model
     }
 
     public function addImages(?array $photos) :self{
-        if($photos){
-        $movieImage =[];
-        $time =Carbon::now();
-        foreach($photos as $photo){
-            $ext = $photo->getClientOriginalExtension();
-            $name = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-            $file = $name. '-' . rand(100000, 999999). '.' . $ext;
-            $photo->move(public_path().'/images', $file);
-            $movieImage[] = [ 'url' => asset('/images') . '/' . $file,
-            'movie_id' => $this->id,
-            'created_at' => $time,
-            'updated_at' => $time,          
-            ];
-        }
 
+            if($photos){
+            $movieImage =[];
+            $time =Carbon::now();
+            foreach($photos as $photo){
+                $ext = $photo->getClientOriginalExtension();
+                $name = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                $file = $name. '-' . rand(100000, 999999). '.' . $ext;
+                $photo->move(public_path().'/images', $file);
+                $movieImage[] = [ 'url' => asset('/images') . '/' . $file,
+                'movie_id' => $this->id,
+                'created_at' => $time,
+                'updated_at' => $time,          
+                ];
+            }
+            
         MovieImage::insert($movieImage);
  
         }
@@ -61,11 +62,15 @@ class Movie extends Model
     }
 
 
+
     public function addTags(?array $tags) :self{
         if($tags){
+            $tagsNow = $this->getPivot()->pluck('tag_id')->all();
+            $tags = array_map(fn($id)=> (int)$id, $tags);
+            $insertTags =array_diff($tags, $tagsNow);
         $movieTag =[];
         $time =Carbon::now();
-        foreach($tags as $tag){
+        foreach($insertTags as $tag){
             $movieTag[] = [ 
             'movie_id' => $this->id,
             'tag_id' => $tag,
@@ -75,6 +80,15 @@ class Movie extends Model
         }
         MovieTag::insert($movieTag);
         }
+    
+        return $this;
+    }
+    public function removeTags(?array $tags) :self{
+        
+        $tagsNow = $this->getPivot()->pluck('tag_id')->all();
+        $tags = array_map(fn($id)=> (int)$id, $tags ?? []);
+        $deleteTags =array_diff($tagsNow, $tags);
+        MovieTag::whereIn('tag_id', $deleteTags)->delete();
         return $this;
     }
 
