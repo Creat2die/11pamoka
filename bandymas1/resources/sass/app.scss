@@ -1,0 +1,87 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+.turinys{
+    display: flex;
+    
+    align-items: center;
+    flex-wrap: wrap;
+
+    .card-title{
+        background-color: lightblue;
+        border-radius: 5px;
+        padding: 5px;
+    }
+    .card-title2{
+        background-color: lightgoldenrodyellow;
+        border-radius: 5px;
+        padding: 5px;
+    }
+    .korta{
+
+        padding: 30px;
+    }
+}
+.img {
+    img {
+        width: auto;
+        height: 300px;
+    }
+}
+
+.img-small {
+    img {
+        width: auto;
+        height: 100px;
+    }
+}
+
+textarea.form-control {
+    min-height: 200px;
+}
+
+.img-small-ch {
+    .img {
+        position: relative;
+        margin: 25px;
+
+        img {
+            width: auto;
+            height: 150px;
+            position: relative;
+            z-index: 10;
+        }
+
+        label {
+            position: absolute;
+            z-index: 20;
+            top: -10px;
+            left: -10px;
+            background-color: crimson;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        [type=checkbox] {
+            display: none;
+            &:checked~img {
+                opacity: 0.3;
+            }
+        }
+    }
+}
