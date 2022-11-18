@@ -43,7 +43,21 @@
                         <input type="text" class="form-control" name="pages" value="{{old('pages', $book->pages)}}">
                     </div>
 
+                    <div data-clone class="input-group mt-3">
+                        <span class="input-group-text">Photo</span>
+                        <input type="file" name="photo[]" multiple class="form-control">
+                    </div>
+                    @forelse($book->getPhotos as $photo)
+                    <div class="img">
+                        <label for="{{$photo->id}}-del-photo">x</label>
+                        <input type="checkbox" value="{{$photo->id}}" id="{{$photo->id}}-del-photo" name="delete_photo[]">
+                        <img src="{{$photo->url}}">
+                    </div>
+                    @empty
+                    <h2>No photos yet</h2>
+                    @endforelse
 
+                    
                     @error('category_id')
                     <div style="color:crimson">{{$message}}</div>
                     @enderror

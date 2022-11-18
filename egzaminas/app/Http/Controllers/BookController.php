@@ -81,7 +81,7 @@ class BookController extends Controller
             'ISBN' =>'required',
             'pages' =>'required',
             'category_id' =>'required',
-        ]);
+        ])->addImages($request->file('photo'));
 
         Book::create([
             'title' => $request->title,
@@ -146,6 +146,8 @@ class BookController extends Controller
             'pages' => $request->pages,
             'category_id' => $request->category_id,
         ]);
+        $book->removeImages($request->delete_photo)
+        ->addImages($request->file('photo'));
 
         return redirect()->route('b_index');
     }
@@ -158,6 +160,10 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
+        if($book->getPhotos()->count()){
+            $delIds = $book->getPhotos()->pluck('id')->all();
+            $book->removeImages($delIds);
+        }
         $book->delete();
         return redirect()->route('b_index');
     }

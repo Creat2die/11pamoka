@@ -52,6 +52,9 @@
 
             <div class="card-body">
                 <h2 class="card-title">{{$book->title}}</h2>
+                @if($book->getPhotos()->count())
+                <div><img class="fit-picture" src="{{$book->lasImageUrl()}}" height="150"></div>
+                @endif
                 <h4><b>Category:</b> {{$book->getCategory->name}}</h4>
                 <h4><b>ISBN:</b> {{$book->ISBN}}</h4>
                 <h4><b>Pages:</b> {{$book->pages}}</h4>
