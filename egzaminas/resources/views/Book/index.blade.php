@@ -60,6 +60,7 @@
                 <h4><b>Pages:</b> {{$book->pages}}</h4>
                 <h5><b>Description:</b><br> {{$book->description}}</h4>
                 <div class="mygtukai">
+                @if(Auth::user()->role >= 10)
                 <a href="{{route('b_edit', $book)}}" class="btn btn-primary m-2">Edit</a>
                 <form action="{{route('b_delete', $book)}}" method="post">
                     @csrf
@@ -67,7 +68,12 @@
                     <button type="submit" class="btn btn-primary m-2">DELETE</button>
                 </form>
                 <a href="{{route('b_show', $book)}}" class="btn btn-primary m-2">View</a>
+                @endif
                 </div>
+                <div class="mygtukai">
+                                <a href="" class="btn btn-primary m-2">Reserve</a>
+                <a href="" class="btn btn-primary m-2">Add to Wishlist</a>
+            </div>
             </div>
         </div>
     </div>

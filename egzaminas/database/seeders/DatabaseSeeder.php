@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
                     'password' => Hash::make('123'),
                     'created_at' => $time,
                     'updated_at' => $time,
+                    'role'=> 10,
                    
                 ]);
                 DB::table('users')->insert([
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
                     'password' => Hash::make('123'),
                     'created_at' => $time,
                     'updated_at' => $time,
+                    'role'=> 1,
                     
                 ]);   
                 
