@@ -15,7 +15,7 @@
                     <h4><b>ISBN:</b> {{$book->ISBN}}</h4>
                     <h4><b>Pages:</b> {{$book->pages}}</h4>
                     <h5><b>Description:</b><br> {{$book->description}}</h4>
-                        <a href="{{url()->previous()}}" class="btn btn-primary m-2">Back to list</a>
+                    <a href="{{url()->previous()}}" class="btn btn-primary m-2">Back to list</a>
                 </div>
             </div>
         </div>
