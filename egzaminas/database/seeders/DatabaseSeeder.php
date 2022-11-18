@@ -36,6 +36,27 @@ class DatabaseSeeder extends Seeder
                     'created_at' => $time,
                     'updated_at' => $time,
                     
-                ]);       
+                ]);   
+                
+                
+                foreach(['Classics', 'Crime', 'Fantasy', 'Horror', 'Poetry'] as $category){
+                    DB::table('categories')->insert([
+                        'name' => $category,
+                        'created_at' => $time->addSeconds(1),
+                        'updated_at' => $time,
+                    ]);
+                }
+
+                foreach(['A Tale Of Two Cities', 'The Little Prince', 'Harry Potter and the Philosophers Stone', 'And Then There Were None', 'Dream Of The Red Chamber', 'The Hobbit' ] as $book){
+                    DB::table('books')->insert([
+                        'title' => $book,
+                        'description' => $faker->text,
+                        'ISBN' => rand(1000000000000,9999999999999),
+                        'pages' => rand(150, 2000),
+                        'category_id' => rand(1,5),
+                        'created_at' => $time->addSeconds(1),
+                        'updated_at' => $time,
+                    ]);
+                }
     }
 }
