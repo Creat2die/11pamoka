@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->string('title', 64);
+            $table->string('description', 300);
+            $table->unsignedBigInteger('ISBN');	
+            $table->unsignedSmallInteger('pages');	
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
