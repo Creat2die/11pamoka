@@ -77,10 +77,11 @@ class BookController extends Controller
     {
         $request->validate([
             'title' =>'required',
-            'description' =>'required',
-            'ISBN' =>'required',
-            'pages' =>'required',
+            'description' =>'required|max:300',
+            'ISBN' =>'required|min:13|max:13',
+            'pages' =>'required|min:1|max:4',
             'category_id' =>'required',
+            'photo.*' => 'sometimes|required|mimes:jpg|max:3000',
         ]);
 
         Book::create([
@@ -133,10 +134,11 @@ class BookController extends Controller
     {
         $request->validate([
             'title' =>'required',
-            'description' =>'required',
-            'ISBN' =>'required',
-            'pages' =>'required',
+            'description' =>'required|max:300',
+            'ISBN' =>'required|min:13|max:13',
+            'pages' =>'required|min:1|max:4',
             'category_id' =>'required',
+            'photo.*' => 'sometimes|required|mimes:jpg|max:3000',
         ]);
 
         $book->update([
