@@ -11,4 +11,7 @@ class Hotel extends Model
 
     protected $fillable = ['name', 'price', 'country_id', 'term'];
 
+    public function getCountry(){
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
@@ -26,7 +27,9 @@ class HotelController extends Controller
      */
     public function create()
     {
-        return view('hotel.create');
+        return view('hotel.create',[
+            'countries' => Country::orderBy('name')->get(),
+        ]);
     }
 
     /**
@@ -37,7 +40,21 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' =>'required',
+            'price' =>'required',
+            'term' =>'required',
+            'country_id' =>'required',
+        ]);
+
+        Hotel::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'term' => $request->term,
+            'country_id' => $request->country_id,
+        ]);
+
+        return redirect()->route('h_index');
     }
 
     /**
@@ -61,7 +78,9 @@ class HotelController extends Controller
      */
     public function edit(Hotel $hotel)
     {
-        //
+        return view('hotel.edit', [
+            'hotel' => $hotel,
+        ]);
     }
 
     /**
@@ -73,7 +92,17 @@ class HotelController extends Controller
      */
     public function update(Request $request, Hotel $hotel)
     {
-        //
+        $request->validate([
+            'name' =>'required',
+            'term' =>'required',
+        ]);
+
+        $hotel->update([
+            'name' => $request->name,
+            'term' => $request->term,
+        ]);
+
+        return redirect()->route('h_index');
     }
 
     /**
@@ -84,6 +113,7 @@ class HotelController extends Controller
      */
     public function destroy(Hotel $hotel)
     {
-        //
+        $hotel->delete();
+        return redirect()->route('h_index');
     }
 }

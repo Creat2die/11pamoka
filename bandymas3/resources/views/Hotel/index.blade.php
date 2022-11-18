@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div style=" padding:10px">
 <ul class="list-group">
   <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -13,7 +14,7 @@
 <ul class="list-group">
   <li class="list-group-item d-flex justify-content-between align-items-center">
     <h4><a href="{{route('h_show', $hotel)}}">{{$hotel->name}}</a></h4>
-
+    <h4>{{$hotel->getCountry->name}}</h4>
  
         <a href="{{route('h_edit', $hotel)}}" class="btn btn-primary m-2">Edit</a>
                 <form action="{{route('h_delete', $hotel)}}" method="post">
