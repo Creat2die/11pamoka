@@ -59,7 +59,7 @@
                 <h4><b>ISBN:</b> {{$book->ISBN}}</h4>
                 <h4><b>Pages:</b> {{$book->pages}}</h4>
                 <h5><b>Description:</b><br> {{$book->description}}</h4>
-                <div>
+                <div class="mygtukai">
                 <a href="{{route('b_edit', $book)}}" class="btn btn-primary m-2">Edit</a>
                 <form action="{{route('b_delete', $book)}}" method="post">
                     @csrf

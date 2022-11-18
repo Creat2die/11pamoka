@@ -81,7 +81,7 @@ class BookController extends Controller
             'ISBN' =>'required',
             'pages' =>'required',
             'category_id' =>'required',
-        ])->addImages($request->file('photo'));
+        ]);
 
         Book::create([
             'title' => $request->title,
@@ -89,7 +89,7 @@ class BookController extends Controller
             'ISBN' => $request->ISBN,
             'pages' => $request->pages,
             'category_id' => $request->category_id,
-        ]);
+        ])->addImages($request->file('photo'));
 
         return redirect()->route('b_index');
     }

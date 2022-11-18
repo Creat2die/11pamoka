@@ -47,25 +47,26 @@
                         <span class="input-group-text">Photo</span>
                         <input type="file" name="photo[]" multiple class="form-control">
                     </div>
+                    <h3 class=" mt-3">Check (x) for delete photo</h3>
                     @forelse($book->getPhotos as $photo)
-                    <div class="img">
+                    <div class="img mt-3">
                         <label for="{{$photo->id}}-del-photo">x</label>
                         <input type="checkbox" value="{{$photo->id}}" id="{{$photo->id}}-del-photo" name="delete_photo[]">
-                        <img src="{{$photo->url}}">
+                        <img  src="{{$photo->url}} " width="150">
                     </div>
                     @empty
                     <h2>No photos yet</h2>
                     @endforelse
 
-                    
+
                     @error('category_id')
                     <div style="color:crimson">{{$message}}</div>
                     @enderror
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3 mt-3">
                         <span class="input-group-text" id="basic-addon3">Restoran</span>
                         <select name="category_id">
                             @foreach($categories as $category)
-                            <option value="{{$category->id}}" @if($category->id == old('category_id')) selected @endif>{{$category->name}}</option>
+                            <option  value="{{$category->id}}" @if($category->id == old('category_id')) selected @endif >{{$category->name}}</option>
                             @endforeach
                         </select>
 
@@ -74,7 +75,7 @@
                     @method('put')
                     <button type="submit" class="btn btn-secondary mt-4">Update</button>
                 </form>
-                <a href="{{route('b_index')}}" class="btn btn-info">Back</a>
+                <a href="{{route('b_index')}}" class="btn btn-info mt-3">Back</a>
             </div>
         </div>
     </div>
