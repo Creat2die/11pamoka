@@ -2,6 +2,46 @@
 
 @section('content')
 
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form action="{{route('b_index')}}" method="get">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-5">
+                            <select name="sort" class="form-select mt-1">
+                                <option value="0">All</option>
+                                @foreach($sortSelect as $option)
+                                <option value="{{$option[0]}}" @if($sort==$option[0]) selected @endif>{{$option[1]}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button type="submit" class="input-group-text mt-1">Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-6">
+            <form action="{{route('b_index')}}" method="get">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="input-group mb-3">
+                                <input type="text" name="s" class="form-control" placeholder="Search..." >
+                                <button type="submit" class="input-group-text">Search</button>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <a href="{{route('b_index')}}" class="btn btn-secondary">Reset</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 <div class="turinys">
@@ -31,7 +71,7 @@
 
     @empty
     <div class="col-5 turinys">
-    <li class="list-group-item">No Restourants found</li>
+    <li class="list-group-item">No Books found</li>
     </div>
     @endforelse
 </div>

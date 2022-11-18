@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('ISBN');	
             $table->unsignedSmallInteger('pages');	
             $table->unsignedBigInteger('category_id');
+            $table->string('photo', 255)->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
