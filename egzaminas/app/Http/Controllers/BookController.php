@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -15,7 +15,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        return view('book.index',[
+            'books' => Book::all(),
+        ]);
     }
 
     /**
@@ -25,7 +27,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('book.create',[
+            'categories' => Category::orderBy('name')->get(),
+        ]);
     }
 
     /**
@@ -34,9 +38,25 @@ class BookController extends Controller
      * @param  \App\Http\Requests\StoreBookRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBookRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' =>'required',
+            'description' =>'required',
+            'ISBN' =>'required',
+            'pages' =>'required',
+            'category_id' =>'required',
+        ]);
+
+        Book::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'ISBN' => $request->ISBN,
+            'pages' => $request->pages,
+            'category_id' => $request->category_id,
+        ]);
+
+        return redirect()->route('b_index');
     }
 
     /**
@@ -47,7 +67,9 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('book.show', [
+            'book' => $book,
+        ]);
     }
 
     /**
@@ -58,7 +80,11 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('book.edit', [
+            'book' => $book,
+            'categories' => Category::orderBy('name')->get(),
+
+        ]);
     }
 
     /**
@@ -68,9 +94,25 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(Request $request, Book $book)
     {
-        //
+        $request->validate([
+            'title' =>'required',
+            'description' =>'required',
+            'ISBN' =>'required',
+            'pages' =>'required',
+            'category_id' =>'required',
+        ]);
+
+        $book->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'ISBN' => $request->ISBN,
+            'pages' => $request->pages,
+            'category_id' => $request->category_id,
+        ]);
+
+        return redirect()->route('b_index');
     }
 
     /**
@@ -81,6 +123,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect()->route('b_index');
     }
 }
