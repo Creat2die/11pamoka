@@ -76,7 +76,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' =>'required',
+            'title' =>'required|min:1|max:63',
             'description' =>'required|max:300',
             'ISBN' =>'required|min:13|max:13',
             'pages' =>'required|min:1|max:4',
@@ -133,7 +133,7 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->validate([
-            'title' =>'required',
+            'title' =>'required|min:1|max:63',
             'description' =>'required|max:300',
             'ISBN' =>'required|min:13|max:13',
             'pages' =>'required|min:1|max:4',
